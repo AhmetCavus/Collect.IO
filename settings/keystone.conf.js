@@ -79,8 +79,7 @@ class KeystoneConfigurator {
 		//});
 
 		this._keystone.set("nav", {
-			account: ["admins", "clients"],
-			trading: ["trade-items", "trade-categories"],
+			account: ["admins", "clients", "roles"],
 		});
 
 		// Start Keystone to connect to your database and initialise the web server

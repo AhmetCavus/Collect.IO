@@ -97,6 +97,14 @@ Here you can see a briefly sketch of the architecture:
 
 `npm start`, `nodemon start` or from **VS Code** select `dev start` or `prod start`.
 
+### Open the Admin panel
+
+In order to get access into the admin panel, you have to open following link
+
+[admin panel](http://localhost:7070/keystone/signin)
+
+The credentials are the one you have provided in the script placed in the updates folder.
+
 ### Playground
 
 You can enter the playground by calling `localhost:8080` in your browser.

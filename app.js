@@ -33,7 +33,6 @@ dbManager
 			require("./routers/root.router")(app);
 			require("./routers/auth.router")(app);
 			require("./routers/channel.router")(app);
-			require("./routers/device.router")(app);
 			require("./routers/collection.router")(app);
 			require("./routers/socket.router")(app);
 			require("./routers/asset.router")(app);

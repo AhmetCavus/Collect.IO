@@ -42,7 +42,6 @@ class MqttService {
 						clientId: 'collectIoServerId'
 					}
 				);
-				console.log(this._client);
             });	//on init it fires up setup()
     }
 
