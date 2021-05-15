@@ -1,0 +1,50 @@
+{
+  "version": "0.8.1",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Show playground",
+      "url": "localhost",
+      "webRoot": "${workspaceRoot}/public/index.html"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Show admin panel",
+      "url": "http://localhost:7070/keystone",
+      "webRoot": "${workspaceRoot}/public"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "dev start",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/app.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "prod start",
+      "runtimeExecutable": "node",
+      "program": "${workspaceFolder}/app.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tests start",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/mocha",
+      "args": ["--inspect-brk", "${workspaceFolder}/test/**/*.js"],
+      "port": 9229,
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
+}
