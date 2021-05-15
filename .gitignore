@@ -117,6 +117,7 @@ dist
 
 # Ignore
 db/mongodb/*
+package-lock.json
 
 # Allow
 !db/mongodb/README.md
