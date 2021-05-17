@@ -1,0 +1,66 @@
+<div class="jumbotron">
+  <h2>Welcome <b>{{profile.email}}</b></h2>
+  <p>Api</p>
+  <button type="button" class="btn-sm btn-dark h-25" ng-click="logout()">
+    Logout
+  </button>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form ng-submit="addItemToCollection()">
+      <div class="input-group">
+        <input
+          name="schema"
+          class="input-sm form-control"
+          ng-model="schema"
+          type="text"
+          placeholder="Add item to collection"
+        />
+      </div>
+      <div class="input-group">
+        <input
+          class="input-sm form-control"
+          ng-model="newItem"
+          type="text"
+          placeholder="New item"
+        />
+        <span class="input-group-btn">
+          <input
+            class="input-sm btn btn-primary"
+            type="submit"
+            value="Add item to collection"
+          />
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-12">
+    <form ng-submit="requestCollection()">
+      <div class="input-group">
+        <input
+          class="input-sm form-control"
+          ng-model="schema"
+          type="text"
+          placeholder="Request collection"
+        />
+        <span class="input-group-btn">
+          <input
+            class="input-sm btn btn-primary"
+            type="submit"
+            value="Request collection"
+          />
+        </span>
+      </div>
+    </form>
+    <div class="well chatbox" id="collection">
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="item in collection.items">
+          {{ item._id }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>

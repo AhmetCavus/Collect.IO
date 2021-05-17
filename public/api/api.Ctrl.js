@@ -1,24 +1,18 @@
-﻿;(function () {
+;(function () {
   "use strict"
 
-  angular.module("app").controller("MainCtrl", MainCtrl)
+  angular.module("app").controller("ApiCtrl", ApiCtrl)
 
-  MainCtrl.$inject = [
-    "$location",
-    "$scope",
-    "$localStorage",
-    "socket",
-    "lodash",
-  ]
+  ApiCtrl.$inject = ["$location", "$scope", "$localStorage", "socket", "lodash"]
 
-  function MainCtrl($location, $scope, $localStorage, socket, lodash) {
+  function ApiCtrl($location, $scope, $localStorage, socket, lodash) {
     $scope.message = ""
     $scope.speech = "Talk"
     $scope.messages = []
     $scope.users = []
     $scope.likes = []
     $scope.privates = []
-    $scope.newItem = '{ "name": "Test Bot", "from": "Ahmet Cavus" }'
+    $scope.newItem = "{}"
     $scope.schema = "Profile"
     $scope.profile = $localStorage.account
 
@@ -41,19 +35,20 @@
     })
 
     socket.on("EVENT_RECEIVE_COLLECTION", function (data) {
-      $scope.collection = JSON.stringify(data)
+      $scope.collection = data
     })
 
     socket.on("EVENT_RECEIVE_PRIVATE_MESSAGE", function (data) {
       $scope.privates.push(data)
+      $scope.privates.push(data)
     })
 
     socket.on("EVENT_COLLECTION_ADD_ITEM", function (data) {
-      $scope.collection = JSON.stringify(data)
+      $scope.collection = data
     })
 
     socket.on("EVENT_UPDATE", function (data) {
-      $scope.collection = JSON.stringify(data)
+      $scope.collection = data
     })
 
     socket.on("EVENT_ERROR", function (e) {
@@ -81,7 +76,7 @@
         schema: $scope.schema,
       }
       socket.emit("COMMAND_REQUEST_COLLECTION", query)
-      $scope.collection = ""
+      $scope.collection = {}
     }
 
     $scope.addItemToCollection = function (newItem) {
@@ -91,7 +86,7 @@
       }
       query.content.from = $scope.profile._id
       socket.emit("COMMAND_COLLECTION_ADD_ITEM", query)
-      $scope.collection = ""
+      $scope.collection = {}
     }
 
     $scope.sendLike = function (user) {
@@ -116,11 +111,6 @@
       utterance.lang = "tr-TR"
       utterance.text = text
       synth.speak(utterance)
-    }
-
-    $scope.logout = function () {
-      socket.logout()
-      $location.path("/join")
     }
   }
 })()

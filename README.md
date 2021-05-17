@@ -41,32 +41,17 @@ This file should contain following keys:
 Mandatory fields
 
 ```
-MONGO_URI=mongodb://user:pass@host:port/collection?authSource=source
-MONGO_OPTIONS=useMongoClient=true
-FIRST_START_LOG=Server listening on port
-PORT=7070
-REST_PORT=8080
-DB_USER=user
-DB_PASS=pass
-DB_HOST=host
-DB_PORT=32777
-DB_CHANNEL=collection
-DB_PUBSUB=mqtt
-DB_AUTO_SERVER=false
-JWT_SECRET=do.not.read.it.is.secret
-BASEPATH=/api/v1/
-DEV_PORT=8080
-DEVELOPMENT=false
+MONGO_URI=mongodb://user:pass@host:port/collection?authSource=admin
+JWT_SECRET=do.not.read.it.is.jwt.secret
 VERIFY_SIGNATURE=i.can.open.doors
 CLIENT_ID=alone.i.am.useless
-SECRET_ID=do.not.read.it.is.secret
-HASH_ALGORITHM=HS256
+SECRET_ID=do.not.read.it.is.client.secret
 ```
 
 Fields for [cloudinary](https://cloudinary.com/)
 
 ```
-COOKIE_SECRET=do.not.read.it.is.secret
+COOKIE_SECRET=do.not.read.it.is.cookie.secret
 CLOUDINARY_NAME==cloudinary
 CLOUDINARY_API_SECRET=secret
 CLOUDINARY_URL=cloudinary://sample
@@ -97,6 +82,39 @@ Here you can see a briefly sketch of the architecture:
 
 `npm start`, `nodemon start` or from **VS Code** select `dev start` or `prod start`.
 
+### Usage
+
+```nodejs
+const CollectIO = require("../core/collectio.app")
+const collectio = new CollectIO.App()
+
+collectio.start({autoDbStart: false, adminPort: 8181}).then(() => {
+  console.log("Collectio is up and running")
+
+  collectio.config((app, express) => {
+    app.get("/test", (req, res) => {
+      res.sendFile(__dirname + "/core/public/index.html")
+    })
+  })
+})
+```
+
+For more information check the unit test project folder.
+
+### Options
+
+In order to configurate the server and ports, you can specify following values on startup:
+
+```nodejs
+collectio.start(options)
+```
+
+| Key         |               Description               | Default |
+| ----------- | :-------------------------------------: | ------: |
+| adminPort   |  Specify the port for the admin panel   |    3000 |
+| restPort    |    Specify the port for the rest API    |    8080 |
+| autoDbStart | Whether auto start the db engine or not |      $1 |
+
 ### Open the Admin panel
 
 In order to get access into the admin panel, you have to open following link
@@ -104,6 +122,7 @@ In order to get access into the admin panel, you have to open following link
 [admin panel](http://localhost:7070/keystone/signin)
 
 The credentials are the one you have provided in the script placed in the updates folder.
+Moreover, if you customized the admin port, you have to set the correct port number.
 
 ### Playground
 
@@ -134,7 +153,7 @@ npm test
 - **Auto db connection:**
 - **Model service:**
 - **Web socket support:**
-- **KARPOS REST Api:**
+- **CollectIO REST Api:**
 
 ## Roadmap
 
