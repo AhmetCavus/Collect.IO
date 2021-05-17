@@ -7,7 +7,7 @@ class DbManager {
 
 	init(options) {
 		return new Promise((resolve, reject) => {
-			if(options.autoStart) dbService.startDb()
+			if(options.autoDbStart) dbService.startDb()
 			setTimeout(async () => {
 				try {
 					await this.dbService.connectToDb()

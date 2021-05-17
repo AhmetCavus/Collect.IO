@@ -66,7 +66,7 @@ Check this [README](./db/mongodb/README.md) for setting up the database.
 
 ### Initial Data
 
-Before running the server for the first time, you can itially add data to the database
+Before running the server for the first time, you can initially add data to the database
 by providing a js script under the updates folder. Here you can add more scripts in order
 to update the database. Therefore, consider the semantic versioning.
 
