@@ -1,5 +1,5 @@
-﻿const pubSubService = require('../services/connection/pubSubService')();
-const collectionRepo = require('../repositories/collection.repository')();
+﻿const pubSubService = require('../services/connection/pubSubService')
+const collectionRepo = require('../repositories/collection.repository')
 const responseService = require('../services/response.service')
 
 module.exports = {

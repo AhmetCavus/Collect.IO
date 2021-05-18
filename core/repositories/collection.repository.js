@@ -188,8 +188,4 @@ class CollectionRepository {
 	}
 }
 
-var collectionRepo;
-module.exports = () => {
-	if (!collectionRepo) collectionRepo = new CollectionRepository();
-	return collectionRepo;
-};
+module.exports = new CollectionRepository()

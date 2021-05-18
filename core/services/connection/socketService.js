@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const emitQueue = require('../connection/emitQueue')();
 const socketioJwt = require('socketio-jwt');
 const channelRepo = require('../../repositories/channel.repository')();
-const collectRepo = require('../../repositories/collection.repository')();
+const collectRepo = require('../../repositories/collection.repository')
 
 class SocketService {
 

@@ -15,21 +15,21 @@ class KeystoneConfigurator {
 			this._keystone.init({
 				name: "Collect.IO",
 				brand: "Collect.IO",
-				sass: "public",
-				static: "public",
-				updates: "../updates",
-				views: "templates/views",
+				sass: "./../../public",
+				static: "./../../public",
+				updates: options.updatePath ?? "updates",
+				views: "./../templates/views",
 				"view engine": ".hbs",
 				"wysiwyg skin": "lightgray",
 				"custom engine": handlebars.create({
-					layoutsDir: "core/templates/views/layouts",
-					partialsDir: "core/templates/views/partials",
+					layoutsDir: "./../templates/views/layouts",
+					partialsDir: "./../templates/views/partials",
 					defaultLayout: "default",
-					helpers: new require("../templates/views/helpers")(),
+					helpers: new require("./../templates/views/helpers")(),
 					extname: ".hbs",
 				}).engine,
-				emails: "../templates/emails",
-				"auto update": true,
+				emails: "./../templates/emails",
+				"auto update": options.autoUpdate ?? false,
 				session: true,
 				auth: true,
 				"user model": "Admin",
@@ -53,7 +53,7 @@ class KeystoneConfigurator {
 			this._keystone.set("cloudinary secure", true);
 		}
 
-		this._keystone.set("signin logo", "keystone.png");
+		this._keystone.set("signin logo", "cinarsoft.logo.png");
 
 		this._keystone.set("mongo options", { useMongoClient: true });
 
@@ -62,8 +62,6 @@ class KeystoneConfigurator {
 
 		if(options.modelPath) {
 			this._keystone.import(options.modelPath)
-		} else {
-			this._keystone.import("../app/models")
 		}
 
 		if(options.adminPort) {

@@ -1,6 +1,9 @@
 ﻿"use strict";
 
 const { exception } = require("console");
+const checkIfEnvVariablesSet = Symbol("checkIfEnvVariablesSet")
+const ensureAtLeastOneAdminExists = Symbol("ensureAtLeastOneAdminExists")
+const ensureInitialization = Symbol("ensureInitialization")
 
 class CollectioApp {
 	constructor() {
@@ -15,6 +18,47 @@ class CollectioApp {
 	}
 
 	async start(options) {
+		this[checkIfEnvVariablesSet]()
+		await this[ensureInitialization](options)
+		await this[ensureAtLeastOneAdminExists]()
+	}
+
+	config(callback) {
+		callback(this.app, this.express)
+	}
+
+	[checkIfEnvVariablesSet]() {
+		if(!process.env.MONGO_URI) {
+			throw new exception('No MONGO_URI provided as env variable')
+		}
+
+		if(!process.env.JWT_SECRET) {
+			throw new exception('No JWT_SECRET provided as env variable')
+		}
+
+		if(!process.env.CLIENT_ID) {
+			throw new exception('No CLIENT_ID provided as env variable')
+		}
+
+		if(!process.env.SECRET_ID) {
+			throw new exception('No SECRET_ID provided as env variable')
+		}
+	}
+
+	async [ensureAtLeastOneAdminExists]() {
+		const collectionRepo = require("./repositories/collection.repository")
+		const adminList = await collectionRepo.getCollection("Admin", "")
+		if(!adminList || adminList.length <= 0) {
+			const result = await collectionRepo.addItem("Admin", {
+				name: { first: "collect", last: "io" },
+				email: "admin@collectio.com",
+				password: "admin"
+			})
+			if(!result.success) throw new exception(result.message)
+		}
+	}
+
+	async [ensureInitialization](options) {
 		const dbResult = await this.dbManager.init(options)
 		// Only if the database could be startet without any issues, than go forward with the app
 		if (dbResult.success) {
@@ -41,10 +85,6 @@ class CollectioApp {
 		} else {
 			throw new exception(dbResult.error)
 		}
-	}
-
-	config(callback) {
-		callback(this.app, this.express)
 	}
 }
 

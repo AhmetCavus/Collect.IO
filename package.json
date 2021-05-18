@@ -1,7 +1,8 @@
 {
-  "name": "collect.io",
-  "version": "0.2.0",
+  "name": "collectio-cms",
+  "version": "0.2.2",
   "description": "A lightweight headless CMS built on top of the classic KeystoneJS",
+  "main": "app.js",
   "dependencies": {
     "base64url": "^3.0.1",
     "bcrypt": "^5.0.1",
