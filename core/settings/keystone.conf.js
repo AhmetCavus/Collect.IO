@@ -1,4 +1,6 @@
-const handlebars = require("express-handlebars");
+const path = require("path")
+const handlebars = require("express-handlebars")
+const pathService = require("./../services/path.service")
 
 class KeystoneConfigurator {
 	constructor(keystone) {
@@ -6,6 +8,9 @@ class KeystoneConfigurator {
 	}
 
 	init(options) {
+		const appRoot = pathService.resolveRootDir()
+		const coreRoot = pathService.resolvePreviousDir(__dirname)
+		const libRoot = pathService.resolvePreviousDir(coreRoot)
 		// Initialise Keystone with your project's configuration.
 		// See http://keystonejs.com/guide/config for available options
 		// and documentation.
@@ -15,20 +20,20 @@ class KeystoneConfigurator {
 			this._keystone.init({
 				name: "Collect.IO",
 				brand: "Collect.IO",
-				sass: "public",
-				static: "public",
-				updates: options.updatePath ?? "../updates",
-				views: "templates/views",
+				sass: path.join(libRoot, "public"),
+				static: path.join(libRoot, "public"),
+				updates: options.updatePath ?? path.join(appRoot, "updates"),
+				views: path.join(coreRoot, "templates/views"),
 				"view engine": ".hbs",
 				"wysiwyg skin": "lightgray",
 				"custom engine": handlebars.create({
-					layoutsDir: "core/templates/views/layouts",
-					partialsDir: "core/templates/views/partials",
+					layoutsDir: path.join(coreRoot, "templates/views/layouts"),
+					partialsDir: path.join(coreRoot, "templates/views/partials"),
 					defaultLayout: "default",
-					helpers: new require("../templates/views/helpers")(),
+					helpers: new require(path.join(coreRoot, "templates/views/helpers"))(),
 					extname: ".hbs",
 				}).engine,
-				emails: "../templates/emails",
+				emails: path.join(coreRoot, "templates/emails"),
 				"auto update": options.autoUpdate ?? false,
 				session: true,
 				auth: true,
@@ -53,7 +58,7 @@ class KeystoneConfigurator {
 			this._keystone.set("cloudinary secure", true);
 		}
 
-		this._keystone.set("signin logo", "cinarsoft.logo.png");
+		this._keystone.set("signin logo", "/images/collectio.logo.png");
 
 		this._keystone.set("mongo options", { useMongoClient: true });
 
@@ -79,7 +84,7 @@ class KeystoneConfigurator {
 		});
 
 		// Load your project's Routes
-		this._keystone.set("routes", require("../../routes"));
+		this._keystone.set("routes", path.join(libRoot, "routes"));
 
 		// Configure the navigation bar in Keystone's Admin UI
 		//keystone.set('nav', {
