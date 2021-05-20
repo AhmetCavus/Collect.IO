@@ -1,5 +1,7 @@
 # CollectIO
 
+[![Build Status](https://dev.azure.com/cinary/Collect.IO/_apis/build/status/AhmetCavus.Collect.IO?branchName=main)](https://dev.azure.com/cinary/Collect.IO/_build/latest?definitionId=7&branchName=main)
+
 A lightweight headless CMS built on top of the classic KeystoneJS.
 The main purpose is to providing convenient services in order to
 automate following features:
