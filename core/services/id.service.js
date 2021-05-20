@@ -20,8 +20,4 @@ class IdService {
 
 }
 
-var idService;
-module.exports = () => {
-    if (!idService) idService = new IdService();
-    return idService;
-}
+module.exports = new IdService()
