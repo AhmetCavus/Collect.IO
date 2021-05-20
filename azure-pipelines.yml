@@ -22,6 +22,7 @@ steps:
 
   - script: |
       npm run test-report
+      npm run test-coverage
     displayName: "npm test"
 
   - task: PublishTestResults@2
@@ -33,5 +34,5 @@ steps:
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: Cobertura # or JaCoCo
-      summaryFileLocation: "$(System.DefaultWorkingDirectory)/test/test-results.xml"
-      reportDirectory: "$(System.DefaultWorkingDirectory)/test/test-results.xml"
+      summaryFileLocation: "$(System.DefaultWorkingDirectory)/test/cobertura-coverage.xml"
+      reportDirectory: "$(System.DefaultWorkingDirectory)/test/coverage"

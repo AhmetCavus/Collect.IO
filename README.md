@@ -2,6 +2,7 @@
 
 ![Build Status](https://dev.azure.com/cinary/Collect.IO/_apis/build/status/AhmetCavus.Collect.IO?branchName=main)
 ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/cinary/collect.io/7)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/cinary/collect.io/7)
 ![npm](https://img.shields.io/npm/v/collectio-cms)
 
 A lightweight headless CMS built on top of the classic KeystoneJS.
