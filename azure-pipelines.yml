@@ -23,3 +23,9 @@ steps:
 - script: |
     npm test
   displayName: 'npm test'
+
+- task: PublishCodeCoverageResults@1
+  inputs: 
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test/*.html'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/test'
