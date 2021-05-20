@@ -24,8 +24,14 @@ steps:
     npm test
   displayName: 'npm test'
 
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: 'test/test-results.xml'
+
 - task: PublishCodeCoverageResults@1
   inputs: 
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test/*.html'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/test'
+    codeCoverageTool: Cobertura # or JaCoCo
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test/test-results.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/test/test-results.xml'
