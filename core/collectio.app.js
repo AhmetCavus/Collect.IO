@@ -80,7 +80,7 @@ class CollectioApp {
 				.createServer(this.app)
 				.listen(options.restPort || 8080);
 
-			this.pubSubService = require("./services/connection/pubSubService")();
+			this.pubSubService = require("./services/connection/pubSubService")
 			this.pubSubService.init(server);
 		} else {
 			throw new exception(dbResult.error)

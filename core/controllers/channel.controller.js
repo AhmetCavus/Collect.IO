@@ -1,4 +1,4 @@
-﻿const pubSubService = require('../services/connection/pubSubService')();
+﻿const pubSubService = require('../services/connection/pubSubService')
 
 module.exports = {
     createChannelAction: createChannelAction,

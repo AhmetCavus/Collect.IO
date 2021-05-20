@@ -1,9 +1,5 @@
 ﻿class ResponseService {
 
-    constructor() {
-        console.log("Response service is created")
-    }
-
     createSuccess(successKey, successValue) {
         var res = {};
         res[successKey] = successValue;

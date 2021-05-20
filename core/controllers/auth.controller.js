@@ -1,7 +1,7 @@
 ﻿const basicAuth = require('express-basic-auth');
 const tokenService = require('../services/token.service')
 const responseService = require('../services/response.service');
-const pubSubService = require('../services/connection/pubSubService')();
+const pubSubService = require('../services/connection/pubSubService')
 const authRepo = require('../repositories/auth.repository')();
 
 module.exports = {
