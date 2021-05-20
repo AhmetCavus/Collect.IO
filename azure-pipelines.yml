@@ -4,34 +4,34 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "10.x"
+    displayName: "Install Node.js"
 
-- script: |
-    npm install
-    npm rebuild
-  displayName: 'npm install and build'
+  - script: |
+      npm install
+      npm rebuild
+    displayName: "npm install and build"
 
-- script: |
-    npm test
-  displayName: 'npm test'
+  - script: |
+      npm run test-report
+    displayName: "npm test"
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: JUnit
-    testResultsFiles: 'test/test-results.xml'
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: "test/test-results.xml"
 
-- task: PublishCodeCoverageResults@1
-  inputs: 
-    codeCoverageTool: Cobertura # or JaCoCo
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/test/test-results.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/test/test-results.xml'
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura # or JaCoCo
+      summaryFileLocation: "$(System.DefaultWorkingDirectory)/test/test-results.xml"
+      reportDirectory: "$(System.DefaultWorkingDirectory)/test/test-results.xml"

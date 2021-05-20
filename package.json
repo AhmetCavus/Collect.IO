@@ -38,13 +38,14 @@
     "chai-string": "^1.5.0",
     "faker": "^4.1.0",
     "mocha": "^7.1.2",
-    "nyc": "^15.1.0",
+    "mocha-junit-reporter": "^2.0.0",
     "sinon": "^9.2.4"
   },
   "scripts": {
     "start": "node app.js",
     "db": "mongod --config settings/mongod.conf",
-    "test": "nyc mocha './test/**/*.test.js'"
+    "test": "mocha './test/**/*.test.js'",
+    "test-report": "mocha './test/**/*.test.js' --reporter mocha-junit-reporter --reporter-options mochaFile=./test/test-results.xml"
   },
   "repository": {
     "url": "https://github.com/AhmetCavus/Collect.IO"
