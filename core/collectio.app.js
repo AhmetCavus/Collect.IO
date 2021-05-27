@@ -1,6 +1,10 @@
 ﻿"use strict";
 
 const { exception } = require("console");
+const path = require("path")
+const _ = require("lodash")
+const SchemaService = require("./services/db/schema.service");
+const Collection = require("./collection");
 const checkIfEnvVariablesSet = Symbol("checkIfEnvVariablesSet")
 const ensureAtLeastOneAdminExists = Symbol("ensureAtLeastOneAdminExists")
 const ensureInitialization = Symbol("ensureInitialization")
@@ -14,6 +18,8 @@ class CollectioApp {
 		this.dbManager = require("./services/db/db.manager")
 		this.keystone = require("keystone-nestedlist")
 		this.keystoneConf = require("./settings/keystone.conf")(this.keystone)
+		this.schemaService = new SchemaService()
+		this.collections = []
 		module.exports.instance = this
 	}
 
@@ -25,6 +31,18 @@ class CollectioApp {
 
 	config(callback) {
 		callback(this.app, this.express)
+	}
+
+	/**
+   * @description Resolves the collection regarding to the given name.
+   * @param {string} name - The name of the collection that should be resolved.
+   * @returns {Collection} the found collection matches to the given name.
+   */
+	collection(name) {
+	return _.findLast(
+		this.collections,
+		o => _.toLower(o.name) === _.toLower(name)
+	)
 	}
 
 	[checkIfEnvVariablesSet]() {
@@ -81,7 +99,20 @@ class CollectioApp {
 				.listen(options.restPort || 8080);
 
 			this.pubSubService = require("./services/connection/pubSubService")
-			this.pubSubService.init(server);
+			this.pubSubService.init(server)
+			
+			var models = []
+			var coreModels = await this.schemaService.resolveCollections(path.join(__dirname, "models"))
+			if(options.modelPath) {
+				const projectModels = await this.schemaService.resolveCollections(options.modelPath)
+				models = [...coreModels, ...projectModels]
+			}
+			models.forEach(model => {
+				const newCollect = new Collection(model)
+				newCollect.activateChannel()
+				this.collections.push(newCollect)
+			})
+			
 		} else {
 			throw new exception(dbResult.error)
 		}

@@ -1,7 +1,5 @@
 var keystone = require("keystone-nestedlist");
 var Types = keystone.Field.Types;
-const socketService = require("../../core/services/connection/socketService")();
-const mqttService = require("../../core/services/connection/mqttService")();
 
 /**
  * Device Model

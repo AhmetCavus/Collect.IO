@@ -1,14 +1,14 @@
-﻿const socketService = require("./socketService")();
+﻿const socketService = require("./socketService");
 
 class PubSubService {
 
+    constructor() {
+        console.log("Pub service invoked")
+    }
+
     init(server) {
-        socketService.init(server);
-    }
-
-    auth() {
-
-    }
+        socketService.init(server)
+    } 
 
     createChannel(channelName) {
         var socketResult = socketService.createChannel(channelName);

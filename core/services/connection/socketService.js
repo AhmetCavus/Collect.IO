@@ -189,8 +189,4 @@ class SocketService {
 
 }
 
-var socketService;
-module.exports = () => {
-    if (!socketService) socketService = new SocketService();
-    return socketService;
-}
+module.exports = new SocketService()

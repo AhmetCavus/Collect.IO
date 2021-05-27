@@ -1,3 +1,4 @@
+const path = require("path")
 const CollectIO = require("../core/collectio.app")
 const collectio = new CollectIO.App()
 
@@ -6,7 +7,8 @@ collectio.start({adminPort: 8181, updatePath: "./../updates", autoUpdate: true})
 
   collectio.config((app, express) => {
     app.get("/test", (req, res) => {
-      res.sendFile(__dirname + "/core/public/index.html")
+      const device = collectio.collection("device")
+      res.status(200).json(device.model)
     })
   })
 })
