@@ -128,10 +128,40 @@ collectio.start(options)
 
 In order to get access into the admin panel, you have to open following link
 
-[admin panel](http://localhost:7070/keystone/signin)
+[admin panel](http://[host]:[specified admin port]/keystone/signin)
 
 The credentials are the one you have provided in the script placed in the updates folder.
 Moreover, if you customized the admin port, you have to set the correct port number.
+
+### Accessing to collections
+
+In order to access the collection provided in the models, you can simply call the code below
+
+```nodejs
+const device = collectio.collection("device")
+// device.model is the mongoose schema
+```
+After that, collectio provides you convenient methods to notify observers
+
+| Function    | Description                                                                |
+| ----------- | :------------------------------------------------------------------------- |
+| sendBroadcast(message, channelName) | Send a broadcast to all oberservers registererd to the given channel name |
+| notifyAddItemCollection(schema, item) | Notify all oberservers listening to changes for the given schema and provide the new created item |
+| notifyRemoveItem(schema, item) | Notify all oberservers listening to changes for the given schema and provide the removed item |
+| notifyUpdateCollection(schema, items) | Notify all oberservers listening to changes for the given schema and provide the items of the changed collection |
+| notifyUpdateCollectionItem(schema, item) | Notify all oberservers listening to changes for the given schema and provide the updated item of the collection |
+
+For every model schema in your models path, a collection will be created in the database. In addition, it will be supplied with bi-directional communication through sockets. You can get further detail in the API calls section.
+
+### API calls
+
+An OpenAPI Spec will be provided here. TBD
+
+### Creating models
+
+For instructions of creating models, you can check the docu of the classic KeystoneJS [How to create models](https://v4.keystonejs.com/api/field/options)
+
+In order to create nested list, check following sample file: [TodoModel](./app/models/todo.js)
 
 ### Playground
 
