@@ -68,7 +68,7 @@ class CollectionRepository {
 							};
 							reject(res);
 						} else {
-							resolve(content);
+							resolve({ result: content, success: true });
 						}
 					});
 				} catch (e) {

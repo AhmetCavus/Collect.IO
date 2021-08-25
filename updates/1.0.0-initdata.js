@@ -8,9 +8,6 @@
  */
 
 exports.create = {
-    Admin: [
-        { 'name.first': 'admin', 'name.last': 'collectio', 'email': 'admin@collectio.com', 'password': 'hhjkflöasd897f-.', 'isAdmin': true }
-	],
 	Role: [
 		{ 'name':'Admin', 'read': true, 'write': true, 'delete': true, 'update': true },
 		{ 'name':'Client', 'read': true, 'write': true, 'delete': false, 'update': false },

@@ -29,5 +29,7 @@ Role.add({
 /**
  * Registration
  */
-Role.defaultColumns = "name, read, write, delete, update";
-Role.register();
+Role.defaultColumns = "name, read, write, delete, update"
+Role.register()
+
+module.exports = Role

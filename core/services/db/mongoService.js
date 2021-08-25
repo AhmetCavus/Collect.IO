@@ -31,7 +31,6 @@ class CollectMongo {
 			this.config.db.channel
 		);
 		mongoose.connect(this.rootUrl, {
-			useMongoClient: true,
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});

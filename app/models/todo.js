@@ -1,5 +1,5 @@
-var keystone = require("keystone-nestedlist");
-var Types = keystone.Field.Types;
+const keystone = require("keystone-nestedlist");
+const Types = keystone.Field.Types;
 
 /**
  * Todo Model
@@ -57,4 +57,6 @@ Todo.schema.pre("save", function (next, done) {
  * Registration
  */
  Todo.defaultColumns = "name, device, client, date, total";
- Todo.register();
+ Todo.register()
+
+ module.exports = Todo

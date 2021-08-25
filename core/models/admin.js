@@ -1,11 +1,11 @@
-﻿var keystone = require("keystone-nestedlist");
-var Types = keystone.Field.Types;
+﻿const keystone = require("keystone-nestedlist");
+const Types = keystone.Field.Types;
 
 /**
  * Admin Model
  * ==========
  */
-var Admin = new keystone.List("Admin", {
+const Admin = new keystone.List("Admin", {
 	autokey: { from: "name email", path: "key", unique: true },
 });
 
@@ -36,5 +36,7 @@ Admin.schema.virtual("canAccessKeystone").get(function () {
 /**
  * Registration
  */
-Admin.defaultColumns = "name, email, isAdmin";
-Admin.register();
+Admin.defaultColumns = "name, email, isAdmin"
+Admin.register()
+
+module.exports = Admin

@@ -70,6 +70,7 @@ class CollectioApp {
 			const result = await collectionRepo.addItem("Admin", {
 				name: { first: "collect", last: "io" },
 				email: "admin@collectio.com",
+				isAdmin: true,
 				password: "admin"
 			})
 			if(!result.success) throw new exception(result.message)

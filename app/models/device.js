@@ -1,11 +1,11 @@
-var keystone = require("keystone-nestedlist");
-var Types = keystone.Field.Types;
+const keystone = require("keystone-nestedlist");
+const Types = keystone.Field.Types;
 
 /**
  * Device Model
  * ==========
  */
-var Device = new keystone.List("Device", {
+ const Device = new keystone.List("Device", {
 	autokey: { from: "name deviceId", path: "key", unique: true },
 });
 
@@ -37,3 +37,5 @@ Device.schema.post("save", function (next) {
  */
 Device.defaultColumns = "name, deviceId, ip, operatingSystem";
 Device.register();
+
+module.exports = Device

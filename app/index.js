@@ -6,9 +6,10 @@ collectio.start({adminPort: 8181, updatePath: "./../updates", autoUpdate: true, 
   console.log("Collectio is up and running")
 
   collectio.config((app, express) => {
-    app.get("/test", (req, res) => {
+    app.get("/test", async (req, res) => {
       const device = collectio.collection("device")
-      res.status(200).json(device.model)
+      const result = await device.model.find()
+      res.status(200).json(result)
     })
   })
 })

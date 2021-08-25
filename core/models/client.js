@@ -40,5 +40,7 @@ Client.add({
 /**
  * Registration
  */
-Client.defaultColumns = "name, email, mode";
-Client.register();
+Client.defaultColumns = "name, email, mode"
+Client.register()
+
+module.exports = Client
