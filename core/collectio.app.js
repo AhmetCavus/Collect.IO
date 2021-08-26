@@ -18,6 +18,7 @@ class CollectioApp {
 		this.dbManager = require("./services/db/db.manager")
 		this.keystone = require("keystone-nestedlist")
 		this.keystoneConf = require("./settings/keystone.conf")(this.keystone)
+		this.pubSubService = require("./services/connection/pubSubService")
 		this.schemaService = new SchemaService()
 		this.collections = []
 		module.exports.instance = this
@@ -70,8 +71,8 @@ class CollectioApp {
 			const result = await collectionRepo.addItem("Admin", {
 				name: { first: "collect", last: "io" },
 				email: "admin@collectio.com",
-				isAdmin: true,
-				password: "admin"
+				password: "admin",
+				isAdmin: true
 			})
 			if(!result.success) throw new exception(result.message)
 		}
@@ -79,7 +80,7 @@ class CollectioApp {
 
 	async [ensureInitialization](options) {
 		const dbResult = await this.dbManager.init(options)
-		// Only if the database could be startet without any issues, than go forward with the app
+		// Proceed only if the initialization was successfull
 		if (dbResult.success) {
 			const restAuthMiddleware = require("./middleware/rest.auth")
 			const signAuthMiddleware = require("./middleware/sign.auth")
@@ -93,15 +94,13 @@ class CollectioApp {
 			this.app.use("/collection", signAuthMiddleware, require("./routers/collection.router"))
 			this.app.use("/asset", signAuthMiddleware, require("./routers/asset.router"))
 
-			console.log("Starting rest service...")
-			const http = require("http")
+			const http = require("http");
 			const server = http
 				.createServer(this.app)
 				.listen(options.restPort || 8080)
 
-			this.pubSubService = require("./services/connection/pubSubService")
 			this.pubSubService.init(server)
-
+			
 			var models = []
 			var coreModels = await this.schemaService.resolveCollections(path.join(__dirname, "models"))
 			if(options.modelPath) {
@@ -114,10 +113,7 @@ class CollectioApp {
 				this.collections.push(newCollect)
 			})
 
-			setTimeout(() => {
-				console.log("Starting keystone engine...")
-				this.keystone.start()
-			})
+			this.keystone.start()
 		} else {
 			throw new exception(dbResult.error)
 		}
