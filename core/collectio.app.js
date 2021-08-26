@@ -86,7 +86,6 @@ class CollectioApp {
 			
 			this.appConf.init()
 			this.keystoneConf.init(options)
-			this.keystone.start()
 
 			this.app.use("/", restAuthMiddleware, require("./routers/root.router"))
 			this.app.use("/auth", require("./routers/auth.router"))
@@ -94,14 +93,15 @@ class CollectioApp {
 			this.app.use("/collection", signAuthMiddleware, require("./routers/collection.router"))
 			this.app.use("/asset", signAuthMiddleware, require("./routers/asset.router"))
 
-			const http = require("http");
+			console.log("Starting rest service...")
+			const http = require("http")
 			const server = http
 				.createServer(this.app)
-				.listen(options.restPort || 8080);
+				.listen(options.restPort || 8080)
 
 			this.pubSubService = require("./services/connection/pubSubService")
 			this.pubSubService.init(server)
-			
+
 			var models = []
 			var coreModels = await this.schemaService.resolveCollections(path.join(__dirname, "models"))
 			if(options.modelPath) {
@@ -113,7 +113,11 @@ class CollectioApp {
 				newCollect.activateChannel()
 				this.collections.push(newCollect)
 			})
-			
+
+			setTimeout(() => {
+				console.log("Starting keystone engine...")
+				this.keystone.start()
+			})
 		} else {
 			throw new exception(dbResult.error)
 		}

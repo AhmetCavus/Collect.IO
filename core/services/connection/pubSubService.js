@@ -2,10 +2,6 @@
 
 class PubSubService {
 
-    constructor() {
-        console.log("Pub service invoked")
-    }
-
     init(server) {
         socketService.init(server)
     } 
