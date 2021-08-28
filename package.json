@@ -1,6 +1,6 @@
 {
   "name": "collectio-cms",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "A lightweight headless CMS built on top of the classic KeystoneJS",
   "main": "app.js",
   "dependencies": {
