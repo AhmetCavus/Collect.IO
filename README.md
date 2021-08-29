@@ -114,15 +114,16 @@ In order to configurate the server and ports, you can specify following values o
 collectio.start(options)
 ```
 
-| Key         | Description                                                                | Default                                    |
-| ----------- | :------------------------------------------------------------------------- | :----------------------------------------- |
-| adminPort   | Specify the port for the admin panel                                       | 3000                                       |
-| restPort    | Specify the port for the rest API                                          | 8080                                       |
-| autoDbStart | Whether auto start the db engine or not                                    | false                                      |
-| autoUpdate  | Whether auto update the db with the scripts from the updates folder or not | false                                      |
-| updatePath  | The path of the directory, where the update scripts are placed             | updates                                    |
-| nav         | A JSON Object representing the nav graph regarding to the models           | { account: ["admins", "clients", "roles"]} |
-| modelPath   | The path of the models, that should be registered in the db                |                                            |
+| Key           | Description                                                                | Default                                    |
+| -----------   | :------------------------------------------------------------------------- | :----------------------------------------- |
+| adminPort     | Specify the port for the admin panel                                       | 3000                                       |
+| restPort      | Specify the port for the rest API                                          | 8080                                       |
+| autoDbStart   | Whether auto start the db engine or not                                    | false                                      |
+| autoUpdate    | Whether auto update the db with the scripts from the updates folder or not | false                                      |
+| updatePath    | The path of the directory, where the update scripts are placed             | updates                                    |
+| nav           | A JSON Object representing the nav graph regarding to the models           | { account: ["admins", "clients", "roles"]} |
+| modelPath     | The path of the models, that should be registered in the db                |                                            |
+| secureRestApi | Whether to auto secure the Rest API with the secrets in the environment    | true                                       |
 
 ### Open the Admin panel
 

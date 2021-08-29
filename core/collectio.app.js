@@ -82,13 +82,19 @@ class CollectioApp {
 		const dbResult = await this.dbManager.init(options)
 		// Proceed only if the initialization was successfull
 		if (dbResult.success) {
-			const restAuthMiddleware = require("./middleware/rest.auth")
-			const signAuthMiddleware = require("./middleware/sign.auth")
-			
+
 			this.appConf.init()
 			this.keystoneConf.init(options)
 
-			this.app.use("/", restAuthMiddleware, require("./routers/root.router"))
+			if(options.secureRestApi) {
+				const restAuthMiddleware = require("./middleware/rest.auth")
+				this.app.use("/", restAuthMiddleware, require("./routers/root.router"))
+
+			} else {
+				this.app.use("/", require("./routers/root.router"))
+			}
+			
+			const signAuthMiddleware = require("./middleware/sign.auth")
 			this.app.use("/auth", require("./routers/auth.router"))
 			this.app.use("/channel", signAuthMiddleware, require("./routers/channel.router"))
 			this.app.use("/collection", signAuthMiddleware, require("./routers/collection.router"))
