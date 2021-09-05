@@ -1,0 +1,58 @@
+openapi: 3.0.1
+info:
+  title: Collect.IO Server
+  description: "This is the api for the Collect.IO Webservice."
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: auth
+    description: "The endpoint for authentication. Here you can register you clients in order to begin with the socket communication"
+  - name: assset
+    description: "The endpoint for managing necessary assets."
+  - name: channel
+    description: ""
+  - name: collection
+    description: "CRUD operations for the collections. A collection is the represantation of a list of entries in the database"
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: Get the status of the qrCode camera
+      description: Get the status of the qrCode camera
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref:  "#/components/schemas/authBody"
+      responses:
+        200:
+          description: Successfull response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authResponse'
+components:
+  schemas:
+    authBody:
+      type: object
+      properties:
+        clientId:
+          type: "string"
+          description: "A unique id like the mail address"
+        secretId:
+          type: "string"
+          description: "The password of the depending clientId"
+        channel:
+          type: "string"
+          description: "The namespace of the project"
+    authResponse:
+      type: object
+      properties:
+        success:
+          type: "boolean"
+          description: "Indicates whether the request was successfull or not"
+        token:
+          type: "string"
+          description: "The jwt token in order to verify further requests with the Rest API or Socket communication"

@@ -46,6 +46,11 @@ class CollectioApp {
 	)
 	}
 
+	sendBroadcast(message, channel) {
+		this.pubSubService.createChannel()
+		this.pubSubService.sendBroadcast(message, channel)
+	}
+
 	[checkIfEnvVariablesSet]() {
 		if(!process.env.MONGO_URI) {
 			throw new exception('No MONGO_URI provided as env variable')
