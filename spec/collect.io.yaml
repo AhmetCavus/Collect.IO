@@ -11,7 +11,7 @@ tags:
   - name: assset
     description: "The endpoint for managing necessary assets."
   - name: channel
-    description: ""
+    description: "The endpoint for publish and subscribe within a namespace"
   - name: collection
     description: "CRUD operations for the collections. A collection is the represantation of a list of entries in the database"
 paths:
@@ -19,15 +19,58 @@ paths:
     post:
       tags:
         - auth
-      summary: Get the status of the qrCode camera
-      description: Get the status of the qrCode camera
+      summary: Authentication for retrieving the token
+      description: Authenticate in order to get the token for further requests
       requestBody:
         content:
           "application/json":
             schema:
               $ref:  "#/components/schemas/authBody"
       responses:
-        200:
+        "200":
+          description: Successfull response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authResponse'
+  /auth/create:
+    post:
+      tags:
+        - auth
+      summary: Create a new subscription
+      description: Create a new subscription in order to get a token for further requests
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref:  "#/components/schemas/authBody"
+      responses:
+        "200":
+          description: Successfull response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authResponse'
+  /channel/{id}:
+    post:
+      tags:
+        - channel
+      summary: Create a new chanel
+      description: Creates a new channel for sending broadcasts within the namespace
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to update
+          required: true
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref:  "#/components/schemas/authBody"
+      responses:
+        "200":
           description: Successfull response
           content:
             application/json:
